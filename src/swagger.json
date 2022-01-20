@@ -48,6 +48,16 @@
                 "tags": ["User"],
                 "summary": "List all users",
                 "description": "List all users",
+                "operationId": "user_id",
+                "parameters": [{
+                    "in": "header",
+                    "name": "user_id",
+                    "description": "ID of admin user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                }],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -96,7 +106,7 @@
                     "summary": "Updates a user to admin based on ID",
                     "operationId": "user_id",
                     "parameters": [{
-                        "in": "header",
+                        "in": "path",
                         "name": "user_id",
                         "description": "ID of user that needs to be update",
                         "required": true,
@@ -138,6 +148,58 @@
                         "400":{
                             "description": "Bad request"
                         }
+                    }
+                }
+            },
+            "/users/{user_id}": {
+                "get": {
+                    "tags": ["User"],
+                    "summary": "List an user based on ID",
+                    "operationId": "user_id",
+                    "parameters": [{
+                        "in": "path",
+                        "name": "user_id",
+                        "description": "ID of user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }],
+                    "responses": {
+                        "200": {
+                            "description": "Success",
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "admin": {
+                                                    "type": "boolean"
+                                                },
+                                                "create_at": {
+                                                    "type": "date"
+                                                },
+                                                "update_at": {
+                                                    "type": "date"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "400":{
+                            "description": "Bad request"
+                        }
+                        
                     }
                 }
             }
